@@ -1,9 +1,9 @@
 syntax = "proto3";
 package common;
-option go_package = "";
+option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/common";
 
 import "protoc-gen-openapiv2/options/annotations.proto";
-import "google/api/annotations.proto";
+// import "google/api/annotations.proto";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {

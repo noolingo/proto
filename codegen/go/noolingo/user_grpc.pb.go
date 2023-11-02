@@ -8,7 +8,7 @@ package noolingo
 
 import (
 	context "context"
-	common "github.com/MelnikovNA/noolingoproto/gen/go/common"
+	common "github.com/MelnikovNA/noolingoproto/codegen/go/common"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -20,15 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_SignUp_FullMethodName              = "/saas.User/SignUp"
-	User_SignIn_FullMethodName              = "/saas.User/SignIn"
-	User_Logout_FullMethodName              = "/saas.User/Logout"
-	User_GetUser_FullMethodName             = "/saas.User/GetUser"
-	User_UpdateUser_FullMethodName          = "/saas.User/UpdateUser"
-	User_DeleteUser_FullMethodName          = "/saas.User/DeleteUser"
-	User_CreateUser_FullMethodName          = "/saas.User/CreateUser"
-	User_UpdatePassword_FullMethodName      = "/saas.User/UpdatePassword"
-	User_ValidateAccessToken_FullMethodName = "/saas.User/ValidateAccessToken"
+	User_SignUp_FullMethodName              = "/noolingo.User/SignUp"
+	User_SignIn_FullMethodName              = "/noolingo.User/SignIn"
+	User_Logout_FullMethodName              = "/noolingo.User/Logout"
+	User_GetUser_FullMethodName             = "/noolingo.User/GetUser"
+	User_UpdateUser_FullMethodName          = "/noolingo.User/UpdateUser"
+	User_DeleteUser_FullMethodName          = "/noolingo.User/DeleteUser"
+	User_CreateUser_FullMethodName          = "/noolingo.User/CreateUser"
+	User_UpdatePassword_FullMethodName      = "/noolingo.User/UpdatePassword"
+	User_ValidateAccessToken_FullMethodName = "/noolingo.User/ValidateAccessToken"
 )
 
 // UserClient is the client API for User service.
@@ -361,7 +361,7 @@ func _User_ValidateAccessToken_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var User_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "saas.User",
+	ServiceName: "noolingo.User",
 	HandlerType: (*UserServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
