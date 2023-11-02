@@ -18,3 +18,4 @@ flat:
 		done; \
 	fi; \
    	echo "finish flat codegen folder";
+rewrite
