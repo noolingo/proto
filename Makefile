@@ -22,6 +22,14 @@ generate:
     --grpc-gateway_opt generate_unbound_methods=true \
 	./proto/common/common.proto
 
+	protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	--go_opt paths=source_relative --go-grpc_out ${DEST} \
+	--go-grpc_opt paths=source_relative \
+	--grpc-gateway_out ${DEST} \
+    --grpc-gateway_opt paths=source_relative \
+    --grpc-gateway_opt generate_unbound_methods=true \
+	./proto/common/info.proto
+
 	@echo "finish proto generation";
 
 # # flat:

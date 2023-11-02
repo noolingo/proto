@@ -1,0 +1,58 @@
+syntax = "proto3";
+package noolingo;
+option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/noolingo";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "common/common.proto";
+
+service Deck{
+
+    rpc DeckCreate(DeckCreateRequest) returns (common.Response){
+        option (google.api.http)={
+            post: "/decks"
+            body: "*"
+        };
+    }
+
+    rpc CardAdd(CardAddRequest) returns (common.Response){
+        option (google.api.hhthp)={
+            post: "/decks/cards"
+            body: "*"
+        };
+    }
+
+    rpc CardDelete(CardDeletRequest) returns (common.Response){
+        option (google.api.http) = {
+            post: "/decks/{deckId}/cards/{cardId}"
+            body: "*"
+        };
+    }
+
+    rpc DeckDelete(DeckDeletRequest) returns (common.Response){
+        option (google.api.http) = {
+            post: "/decks/{decckId}"
+            body: "*"
+        };
+    }
+
+    rpc DeckList(DeckListRequest) returns (common.Response){
+        option (google.api.http) = {
+            post: "/decks"
+            bodt: "*"
+        };
+    }
+
+}
+
+message DeckCreateRequest{
+    string id = 1;
+    string name = 2;
+    bool is_private = 3;
+    string description = 4;
+}
+
+message CardAddRequest{
+
+}
