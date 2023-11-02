@@ -1,0 +1,79 @@
+syntax = "proto3";
+package saas;
+option go_package = "";
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "common/common.proto";
+
+service User {
+
+    rpc SignUp(SignUpRequest) returns (common.Response) {
+      option (google.api.http) = {
+        post: "/auth/sign-up"
+        body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {} // Disable auth
+      };
+    }
+  
+    rpc SignIn(SignInRequest) returns (SignInReply) {
+      option (google.api.http) = {
+        post: "/auth/sign-in"
+        body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {} // Disable auth
+      };
+    }
+  
+    rpc Logout(LogoutRequest) returns (common.Response) {
+      option (google.api.http) = {
+        delete: "/auth/logout"
+      };
+    }
+  
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+      option (google.api.http) = {
+        get: "/users/{id}"
+      };
+    }
+  
+    rpc UpdateUser(UpdateUserRequest) returns (common.Response) {
+      option (google.api.http) = {
+        put: "/users"
+        body: "*"
+      };
+    }
+  
+    rpc DeleteUser(DeleteUserRequest) returns (common.Response) {
+      option (google.api.http) = {
+        delete: "/users/{id}"
+      };
+    }
+  
+    rpc CreateUser(CreateUserRequest) returns (common.Response) {
+      option (google.api.http) = {
+        post: "/users"
+        body: "*"
+      };
+    }
+  
+    rpc UpdatePassword(UpdatePasswordRequest) returns (common.Response) {
+      option (google.api.http) = {
+        post: "/users/password"
+        body: "*"
+      };
+    }
+    
+    rpc ValidateAccessToken(ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse) {}
+    rpc ValidateApiKey(ValidateApiKeyRequest) returns (common.Response) {}
+    
+  message ValidateApiKeyRequest {
+    string user_id = 1;
+    string api_key =2;
+  }
+}
