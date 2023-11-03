@@ -16,3 +16,7 @@ service Cards{
         };
     }
 }
+
+message SearchWordRequest{
+    string id =1;
+}
