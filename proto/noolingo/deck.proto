@@ -49,10 +49,18 @@ service Deck{
 message DeckCreateRequest{
     string id = 1;
     string name = 2;
-    bool is_private = 3;
+    bool is_private =3;
     string description = 4;
 }
 
 message CardAddRequest{
 
+}
+
+message DeckDeletRequest{
+    string id = 1;
+}
+
+message DeckListRequest{
+    
 }
