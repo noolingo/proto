@@ -1,9 +1,12 @@
 DEST=./codegen/go
+DEST2= ./codegen/swagger
 
 generate:
 	@rm -rf codegen; 
 	@mkdir -p ${DEST}/noolingo 
 	@mkdir -p  ${DEST}/common
+	@mkdir -p ${DEST2}/noolingo 
+	@mkdir -p  ${DEST2}/common
 	@echo "start proto generation"; 
 
 #common
@@ -24,6 +27,7 @@ generate:
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	./proto/noolingo/user.proto 
+
 	@echo "user - done"
 
 #deck
@@ -87,3 +91,5 @@ generate:
 # protoc -I ./proto -I . -I ./proto/third_party --go_out ./gen/go/ --go_opt paths=source_relative     --go-grpc_out ./gen/go/ --go-grpc_opt paths=source_relative ./proto/noolingo/user.proto
 
 ##
+# --swagger_out ${DEST2}\
+# --swagger_out=allow_merge=true,merge_file_name=user:. \
