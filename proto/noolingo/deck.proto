@@ -2,65 +2,89 @@ syntax = "proto3";
 package noolingo;
 option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/noolingo";
 
-import "protoc-gen-openapiv2/options/annotations.proto";
+//import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
+// import "google/protobuf/empty.proto";
+//import "google/protobuf/timestamp.proto";
 import "common/common.proto";
 
 service Deck{
 
-    rpc DeckCreate(DeckCreateRequest) returns (common.Response){
+    rpc DeckCreate(DeckCreateRequest) returns (DeckCreateResponse){
         option (google.api.http)={
             post: "/decks"
             body: "*"
         };
     }
 
-    rpc CardAdd(CardAddRequest) returns (common.Response){
-        option (google.api.hhthp)={
-            post: "/decks/cards"
+    rpc CardAdd(CardAddRequest) returns (CardAddResponse){
+        option (google.api.http)={
+            put: "/decks/cards"
             body: "*"
         };
     }
 
-    rpc CardDelete(CardDeletRequest) returns (common.Response){
+    rpc CardDelete(CardDeleteRequest) returns (common.Response){
         option (google.api.http) = {
-            post: "/decks/{deckId}/cards/{cardId}"
-            body: "*"
+            delete: "/decks/{deck_id}/cards/{card_id}"
         };
     }
 
-    rpc DeckDelete(DeckDeletRequest) returns (common.Response){
+    rpc DeckDelete(DeckDeleteRequest) returns (common.Response){
         option (google.api.http) = {
-            post: "/decks/{decckId}"
-            body: "*"
+            delete: "/decks/{deck_id}"
         };
     }
 
     rpc DeckList(DeckListRequest) returns (common.Response){
         option (google.api.http) = {
-            post: "/decks"
-            bodt: "*"
+            get: "/decks/{id}"
         };
     }
 
 }
 
+message DeckObject{
+    string id =1;
+    repeated string card_ids =2;
+    string name =3;
+}
+
 message DeckCreateRequest{
-    string id = 1;
-    string name = 2;
-    bool is_private =3;
-    string description = 4;
+    string name = 1;
+    string description = 2;
 }
 
 message CardAddRequest{
-
+    string deck_id =1;
+    string card_id =2;
 }
 
-message DeckDeletRequest{
-    string id = 1;
+message CardDeleteRequest{
+    string deck_id =1;
+    string card_id =2;
+}
+
+message DeckDeleteRequest{
+    string deck_id = 1;
 }
 
 message DeckListRequest{
-    
+    string id =1;
+}
+
+message DeckCreateResponse{
+    string deckID =1;
+    optional common.Error response =2;
+}
+
+message CardAddResponse{
+    string deck_id =1;
+    string card_id =2;
+    optional common.Error response =3;    
+}
+
+message DeckListResponse{
+    DeckObject deckIDs =1;
+    optional common.Error response =2;
 }

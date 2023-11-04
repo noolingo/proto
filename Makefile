@@ -1,34 +1,73 @@
 DEST=./codegen/go
 
 generate:
-	rm -rf codegen; 
-	mkdir -p ${DEST}/noolingo 
-	mkdir -p  ${DEST}/common
+	@rm -rf codegen; 
+	@mkdir -p ${DEST}/noolingo 
+	@mkdir -p  ${DEST}/common
 	@echo "start proto generation"; 
 
-	protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
-	--go_opt paths=source_relative --go-grpc_out ${DEST} \
-	--go-grpc_opt paths=source_relative \
-	--grpc-gateway_out ${DEST} \
-    --grpc-gateway_opt paths=source_relative \
-    --grpc-gateway_opt generate_unbound_methods=true \
-	./proto/noolingo/user.proto 
-
-	protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+#common
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
 	--go_opt paths=source_relative --go-grpc_out ${DEST} \
 	--go-grpc_opt paths=source_relative \
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	./proto/common/common.proto
+	@echo "common - done"
 
-	protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+#user
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	--go_opt paths=source_relative --go-grpc_out ${DEST} \
+	--go-grpc_opt paths=source_relative \
+	--grpc-gateway_out ${DEST} \
+    --grpc-gateway_opt paths=source_relative \
+    --grpc-gateway_opt generate_unbound_methods=true \
+	./proto/noolingo/user.proto 
+	@echo "user - done"
+
+#deck
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	--go_opt paths=source_relative --go-grpc_out ${DEST} \
+	--go-grpc_opt paths=source_relative \
+	--grpc-gateway_out ${DEST} \
+    --grpc-gateway_opt paths=source_relative \
+    --grpc-gateway_opt generate_unbound_methods=true \
+	--experimental_allow_proto3_optional=true \
+	./proto/noolingo/deck.proto 
+	@echo "deck - done"
+
+#statistic
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	--go_opt paths=source_relative --go-grpc_out ${DEST} \
+	--go-grpc_opt paths=source_relative \
+	--grpc-gateway_out ${DEST} \
+    --grpc-gateway_opt paths=source_relative \
+    --grpc-gateway_opt generate_unbound_methods=true \
+	--experimental_allow_proto3_optional=true \
+	./proto/noolingo/statistic.proto 
+	@echo "statistic - done"
+
+#cards
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	--go_opt paths=source_relative --go-grpc_out ${DEST} \
+	--go-grpc_opt paths=source_relative \
+	--grpc-gateway_out ${DEST} \
+    --grpc-gateway_opt paths=source_relative \
+    --grpc-gateway_opt generate_unbound_methods=true \
+	--experimental_allow_proto3_optional=true \
+	./proto/noolingo/cards.proto 
+	@echo "cards - done"
+
+#info
+	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
 	--go_opt paths=source_relative --go-grpc_out ${DEST} \
 	--go-grpc_opt paths=source_relative \
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	./proto/common/info.proto
+	@echo "info - done"
 
 	@echo "finish proto generation";
 

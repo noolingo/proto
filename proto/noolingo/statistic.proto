@@ -2,32 +2,49 @@ syntax = "proto3";
 package noolingo;
 option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/noolingo";
 
-import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 import "common/common.proto";
-
+import "google/protobuf/empty.proto";
 
 service Statistic{
-    rpc StatisticUpdate(StatisticUpdataRequest) return (common.Request){
+    
+    rpc StatisticUpdate(StatisticUpdataRequest) returns (common.Response){
         option (google.api.http) ={
-            post: "/statistic"
+            put: "/statistic"
             body: "*"
         };
     }
 
-    rpc StatisticList(StatisticListRequest) return (common.Request){
+    rpc StatisticList(google.protobuf.Empty) returns (StatisticResponse){
         option (google.api.http) = {
-            post: "/statistic"
-            body: "*"
+            get: "/statistic"
         };
     }
+
+    rpc StatisticbyDeckID(StatisticbyDeckIDRequest) returns (StatisticResponse){
+        option (google.api.http) = {
+            get: "/statistic/{deck_id}"
+        };
+    }
+}
+
+message StatisticObject{
+    string deck_id =1;
+    string words_count=2;
+    string words_learned =3;
+    google.protobuf.Duration duration = 4;
 }
 
 message StatisticUpdataRequest{
-
+    StatisticObject statistic =1;
 }
 
-message StatisticList{
-    
+message StatisticbyDeckIDRequest{
+    string deck_id =1;
+}
+
+message StatisticResponse{
+    StatisticObject statistic =1;
+    optional common.Error response =2;
 }

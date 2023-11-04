@@ -20,15 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_SignUp_FullMethodName              = "/noolingo.User/SignUp"
-	User_SignIn_FullMethodName              = "/noolingo.User/SignIn"
-	User_Logout_FullMethodName              = "/noolingo.User/Logout"
-	User_GetUser_FullMethodName             = "/noolingo.User/GetUser"
-	User_UpdateUser_FullMethodName          = "/noolingo.User/UpdateUser"
-	User_DeleteUser_FullMethodName          = "/noolingo.User/DeleteUser"
-	User_CreateUser_FullMethodName          = "/noolingo.User/CreateUser"
-	User_UpdatePassword_FullMethodName      = "/noolingo.User/UpdatePassword"
-	User_ValidateAccessToken_FullMethodName = "/noolingo.User/ValidateAccessToken"
+	User_SignUp_FullMethodName         = "/noolingo.User/SignUp"
+	User_SignIn_FullMethodName         = "/noolingo.User/SignIn"
+	User_Logout_FullMethodName         = "/noolingo.User/Logout"
+	User_GetUser_FullMethodName        = "/noolingo.User/GetUser"
+	User_UpdateUser_FullMethodName     = "/noolingo.User/UpdateUser"
+	User_DeleteUser_FullMethodName     = "/noolingo.User/DeleteUser"
+	User_CreateUser_FullMethodName     = "/noolingo.User/CreateUser"
+	User_UpdatePassword_FullMethodName = "/noolingo.User/UpdatePassword"
+	User_Refresh_FullMethodName        = "/noolingo.User/Refresh"
 )
 
 // UserClient is the client API for User service.
@@ -43,7 +43,7 @@ type UserClient interface {
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*common.Response, error)
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*common.Response, error)
 	UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...grpc.CallOption) (*common.Response, error)
-	ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error)
+	Refresh(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshReply, error)
 }
 
 type userClient struct {
@@ -126,9 +126,9 @@ func (c *userClient) UpdatePassword(ctx context.Context, in *UpdatePasswordReque
 	return out, nil
 }
 
-func (c *userClient) ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error) {
-	out := new(ValidateAccessTokenResponse)
-	err := c.cc.Invoke(ctx, User_ValidateAccessToken_FullMethodName, in, out, opts...)
+func (c *userClient) Refresh(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*RefreshReply, error) {
+	out := new(RefreshReply)
+	err := c.cc.Invoke(ctx, User_Refresh_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ type UserServer interface {
 	DeleteUser(context.Context, *DeleteUserRequest) (*common.Response, error)
 	CreateUser(context.Context, *CreateUserRequest) (*common.Response, error)
 	UpdatePassword(context.Context, *UpdatePasswordRequest) (*common.Response, error)
-	ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error)
+	Refresh(context.Context, *RefreshRequest) (*RefreshReply, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -179,8 +179,8 @@ func (UnimplementedUserServer) CreateUser(context.Context, *CreateUserRequest) (
 func (UnimplementedUserServer) UpdatePassword(context.Context, *UpdatePasswordRequest) (*common.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePassword not implemented")
 }
-func (UnimplementedUserServer) ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ValidateAccessToken not implemented")
+func (UnimplementedUserServer) Refresh(context.Context, *RefreshRequest) (*RefreshReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Refresh not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -339,20 +339,20 @@ func _User_UpdatePassword_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _User_ValidateAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ValidateAccessTokenRequest)
+func _User_Refresh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RefreshRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServer).ValidateAccessToken(ctx, in)
+		return srv.(UserServer).Refresh(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: User_ValidateAccessToken_FullMethodName,
+		FullMethod: User_Refresh_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).ValidateAccessToken(ctx, req.(*ValidateAccessTokenRequest))
+		return srv.(UserServer).Refresh(ctx, req.(*RefreshRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -397,8 +397,8 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_UpdatePassword_Handler,
 		},
 		{
-			MethodName: "ValidateAccessToken",
-			Handler:    _User_ValidateAccessToken_Handler,
+			MethodName: "Refresh",
+			Handler:    _User_Refresh_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

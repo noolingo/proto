@@ -2,21 +2,54 @@ syntax = "proto3";
 package noolingo;
 option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/noolingo";
 
-import "protoc-gen-openapiv2/options/annotations.proto";
+//import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
 import "common/common.proto";
+//import "google/protobuf/timestamp.proto";
 
 service Cards{
     
-    rpc SearchWord(SearchWordRequest) returns (common.Responce){
+    rpc SearchByID(SearchByIDRequest) returns (SearchReply){
         option (google.api.http) ={
-            post: ""
-            body: ""
+            get: "/card/words/{id}"
+        };
+    }
+
+    rpc SearchByRus(SearchByRusRequest) returns (SearchReply){
+        option (google.api.http) ={
+            get: "/card/words/{rus}"
+        };
+    }
+
+    rpc SearchByEng(SearchByEngRequest) returns (SearchReply){
+        option (google.api.http) ={
+            get: "/card/words/{eng}"
         };
     }
 }
 
-message SearchWordRequest{
-    string id =1;
+
+message CardObject{
+    string id = 1;
+    string eng =2;
+    string rus =3;
+    string transcription =4;
+    string example =5;
+}
+
+message SearchByIDRequest{
+   repeated string id =1;
+}
+
+message SearchByEngRequest{
+    string eng =1;
+}
+
+message SearchByRusRequest{
+    string rus =1;
+}
+
+message SearchReply{
+    repeated CardObject cards =1;
+    common.Response response =2;
 }

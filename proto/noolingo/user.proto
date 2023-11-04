@@ -69,7 +69,17 @@ service User {
       };
     }
     
-    rpc ValidateAccessToken(ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse) {}   
+    rpc Refresh(RefreshRequest) returns (RefreshReply) {
+      option (google.api.http) = {
+        post: "/auth/refresh"
+        body: "*"
+      };
+      option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        security: {} // Disable auth
+      };
+    }
+
+    //rpc ValidateAccessToken(ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse) {}   
 }
 
 
@@ -80,11 +90,6 @@ message UserObject {
   bool is_deleted = 4;
   google.protobuf.Timestamp created_at = 5;
   google.protobuf.Timestamp deleted_at = 6;
-  string tariff_id = 7;
-  bool is_admin = 8;
-  string api_key = 9;
-  string short_api_key_data =10;
-  string short_api_key_admin =11;
 }
 
 message GetUserRequest {
@@ -102,16 +107,24 @@ message UpdatePasswordRequest {
 }
 
 
-message ValidateAccessTokenRequest {
-  string token = 1;
+// message ValidateAccessTokenRequest {
+//   string token = 1;
+// }
+
+// message ValidateAccessTokenResponse {
+//   string user_id = 1;
+//   bool is_admin = 2;
+// }
+
+
+message RefreshRequest {
+  string refresh_token = 1;
 }
 
-message ValidateAccessTokenResponse {
-  string user_id = 1;
-  bool is_admin = 2;
+message RefreshReply {
+  string access_token = 1;
+  string refresh_token = 2;
 }
-
-
 
 message SignUpRequest {
   string email = 1;
@@ -128,10 +141,6 @@ message SignInReply {
   string refresh_token = 2;
 }
 
-message RefreshRequest {
-  string refresh_token = 1;
-}
-
 message LogoutRequest {
   string logout_token = 1;
 }
@@ -141,7 +150,6 @@ message UpdateUserRequest {
   string name = 2;
   string email = 3;
   bool is_deleted = 4;
-  bool is_admin = 5;
 }
 
 message DeleteUserRequest {
@@ -154,5 +162,4 @@ message CreateUserRequest {
   bool is_deleted = 4;
   string password = 5;
   string repeated_password = 6;
-  bool is_admin = 7;
 }
