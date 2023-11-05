@@ -226,7 +226,7 @@ func RegisterCardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.Cards/SearchByRus", runtime.WithHTTPPathPattern("/card/words/{rus}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.Cards/SearchByRus", runtime.WithHTTPPathPattern("/card/words/rus/{rus}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -251,7 +251,7 @@ func RegisterCardsHandlerServer(ctx context.Context, mux *runtime.ServeMux, serv
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.Cards/SearchByEng", runtime.WithHTTPPathPattern("/card/words/{eng}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.Cards/SearchByEng", runtime.WithHTTPPathPattern("/card/words/eng/{eng}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -337,7 +337,7 @@ func RegisterCardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.Cards/SearchByRus", runtime.WithHTTPPathPattern("/card/words/{rus}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.Cards/SearchByRus", runtime.WithHTTPPathPattern("/card/words/rus/{rus}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -359,7 +359,7 @@ func RegisterCardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.Cards/SearchByEng", runtime.WithHTTPPathPattern("/card/words/{eng}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.Cards/SearchByEng", runtime.WithHTTPPathPattern("/card/words/eng/{eng}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -381,9 +381,9 @@ func RegisterCardsHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 var (
 	pattern_Cards_SearchByID_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"card", "words", "id"}, ""))
 
-	pattern_Cards_SearchByRus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"card", "words", "rus"}, ""))
+	pattern_Cards_SearchByRus_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 2}, []string{"card", "words", "rus"}, ""))
 
-	pattern_Cards_SearchByEng_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"card", "words", "eng"}, ""))
+	pattern_Cards_SearchByEng_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 2}, []string{"card", "words", "eng"}, ""))
 )
 
 var (

@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/card/words/{eng}": {
+    "/card/words/eng/{eng}": {
       "get": {
         "operationId": "Cards_SearchByEng",
         "responses": {
@@ -36,6 +36,36 @@
         "parameters": [
           {
             "name": "eng",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Cards"
+        ]
+      }
+    },
+    "/card/words/rus/{rus}": {
+      "get": {
+        "operationId": "Cards_SearchByRus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/noolingoSearchReply"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "rus",
             "in": "path",
             "required": true,
             "type": "string"
@@ -74,36 +104,6 @@
             },
             "collectionFormat": "csv",
             "minItems": 1
-          }
-        ],
-        "tags": [
-          "Cards"
-        ]
-      }
-    },
-    "/card/words/{rus}": {
-      "get": {
-        "operationId": "Cards_SearchByRus",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/noolingoSearchReply"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "rus",
-            "in": "path",
-            "required": true,
-            "type": "string"
           }
         ],
         "tags": [

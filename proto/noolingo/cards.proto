@@ -17,13 +17,13 @@ service Cards{
 
     rpc SearchByRus(SearchByRusRequest) returns (SearchReply){
         option (google.api.http) ={
-            get: "/card/words/{rus}"
+            get: "/card/words/rus/{rus}"
         };
     }
 
     rpc SearchByEng(SearchByEngRequest) returns (SearchReply){
         option (google.api.http) ={
-            get: "/card/words/{eng}"
+            get: "/card/words/eng/{eng}"
         };
     }
 }
