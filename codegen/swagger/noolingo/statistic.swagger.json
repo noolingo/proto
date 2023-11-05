@@ -1,0 +1,190 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "noolingo/statistic.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Statistic"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/statistic": {
+      "get": {
+        "operationId": "Statistic_StatisticList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/noolingoStatisticResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "Statistic"
+        ]
+      },
+      "put": {
+        "operationId": "Statistic_StatisticUpdate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/commonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/noolingoStatisticUpdataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Statistic"
+        ]
+      }
+    },
+    "/statistic/{deckId}": {
+      "get": {
+        "operationId": "Statistic_StatisticbyDeckID",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/noolingoStatisticResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "deckId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Statistic"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonError": {
+      "type": "object",
+      "properties": {
+        "Error": {
+          "type": "string"
+        },
+        "ErrorText": {
+          "type": "string"
+        }
+      }
+    },
+    "commonResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        },
+        "error": {
+          "$ref": "#/definitions/commonError"
+        }
+      }
+    },
+    "noolingoStatisticObject": {
+      "type": "object",
+      "properties": {
+        "deckId": {
+          "type": "string"
+        },
+        "wordsCount": {
+          "type": "string"
+        },
+        "wordsLearned": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "noolingoStatisticResponse": {
+      "type": "object",
+      "properties": {
+        "statistic": {
+          "$ref": "#/definitions/noolingoStatisticObject"
+        },
+        "response": {
+          "$ref": "#/definitions/commonError"
+        }
+      }
+    },
+    "noolingoStatisticUpdataRequest": {
+      "type": "object",
+      "properties": {
+        "statistic": {
+          "$ref": "#/definitions/noolingoStatisticObject"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

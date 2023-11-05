@@ -16,6 +16,8 @@ generate:
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
+	--openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/common/common.proto
 	@echo "common - done"
 
@@ -26,6 +28,8 @@ generate:
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
+    --openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/noolingo/user.proto 
 
 	@echo "user - done"
@@ -38,6 +42,8 @@ generate:
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	--experimental_allow_proto3_optional=true \
+	--openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/noolingo/deck.proto 
 	@echo "deck - done"
 
@@ -49,6 +55,8 @@ generate:
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	--experimental_allow_proto3_optional=true \
+	--openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/noolingo/statistic.proto 
 	@echo "statistic - done"
 
@@ -60,6 +68,8 @@ generate:
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
 	--experimental_allow_proto3_optional=true \
+	--openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/noolingo/cards.proto 
 	@echo "cards - done"
 
@@ -70,6 +80,8 @@ generate:
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
+	--openapiv2_out ${DEST2} \
+    --openapiv2_opt use_go_templates=true \
 	./proto/common/info.proto
 	@echo "info - done"
 
@@ -91,5 +103,3 @@ generate:
 # protoc -I ./proto -I . -I ./proto/third_party --go_out ./gen/go/ --go_opt paths=source_relative     --go-grpc_out ./gen/go/ --go-grpc_opt paths=source_relative ./proto/noolingo/user.proto
 
 ##
-# --swagger_out ${DEST2}\
-# --swagger_out=allow_merge=true,merge_file_name=user:. \
