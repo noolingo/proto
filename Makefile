@@ -1,5 +1,9 @@
 DEST=./codegen/go
 DEST2= ./codegen/swagger
+ERRORS_GENERATED := ./codegen/go/apierrors/apierrors_gen.go
+ERRORS_SOURCE    := ./errors/errors.json
+
+all: generate errors-gen
 
 generate:
 	@rm -rf codegen; 
@@ -28,14 +32,14 @@ generate:
 	--grpc-gateway_out ${DEST} \
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
+	--experimental_allow_proto3_optional=true \
     --openapiv2_out ${DEST2} \
     --openapiv2_opt use_go_templates=true \
 	./proto/noolingo/user.proto 
-
 	@echo "user - done"
 
 #deck
-	@protoc -I ./proto -I . -I ./proto/third_party --go_out ${DEST} \
+	@protoc -I  ./proto -I . -I ./proto/third_party --go_out ${DEST} \
 	--go_opt paths=source_relative --go-grpc_out ${DEST} \
 	--go-grpc_opt paths=source_relative \
 	--grpc-gateway_out ${DEST} \
@@ -87,19 +91,13 @@ generate:
 
 	@echo "finish proto generation";
 
-# # flat:
-# 	echo "start flat codegen folder"; \
-# 	root=./codegen; \
-# 	if [ -d "$root" ]; then \
-# 		for dir in `ls $$root`; do \
-# 			folder=`echo $(basename $${dir}) | cut -d/ -f2` ; \
-# 			mv $$root/$$folder/proto/* $$root/$$folder/; \
-# 			rm -r $$root/$$folder/proto; \
-# 			echo "Done $$folder"; \
-# 		done; \
-# 	fi; \
-#    	echo "finish flat codegen folder";
 
-# protoc -I ./proto -I . -I ./proto/third_party --go_out ./gen/go/ --go_opt paths=source_relative     --go-grpc_out ./gen/go/ --go-grpc_opt paths=source_relative ./proto/noolingo/user.proto
+gen:
+	protoc --proto_path=./proto \
+	-I ./proto -I . -I ./proto/third_party\
+    --descriptor_set_out=myservice.protoset \
+    --include_imports ./proto/noolingo/user.proto
 
-##
+errors-gen:
+	go run cmd/err-gen/gen.go
+	gofmt -w $(ERRORS_GENERATED)
