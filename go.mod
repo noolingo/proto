@@ -1,4 +1,4 @@
-module github.com/MelnikovNA/noolingoproto
+module github.com/noolingo/proto
 
 go 1.21.3
 

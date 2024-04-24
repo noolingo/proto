@@ -1,6 +1,6 @@
 syntax = "proto3";
 package noolingo;
-option go_package = "github.com/MelnikovNA/noolingoproto/codegen/go/noolingo";
+option go_package = "github.com/noolingo/proto/codegen/go/noolingo";
 
 import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";

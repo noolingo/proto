@@ -326,7 +326,7 @@ func RegisterUserHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.User/DeleteUser", runtime.WithHTTPPathPattern("/users/{id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.User/DeleteUser", runtime.WithHTTPPathPattern("/user/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -351,7 +351,7 @@ func RegisterUserHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.User/UpdatePassword", runtime.WithHTTPPathPattern("/users/password"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/noolingo.User/UpdatePassword", runtime.WithHTTPPathPattern("/user/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -506,7 +506,7 @@ func RegisterUserHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.User/DeleteUser", runtime.WithHTTPPathPattern("/users/{id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.User/DeleteUser", runtime.WithHTTPPathPattern("/user/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -528,7 +528,7 @@ func RegisterUserHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.User/UpdatePassword", runtime.WithHTTPPathPattern("/users/password"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/noolingo.User/UpdatePassword", runtime.WithHTTPPathPattern("/user/password"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -576,9 +576,9 @@ var (
 
 	pattern_User_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"user", "info"}, ""))
 
-	pattern_User_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"users", "id"}, ""))
+	pattern_User_DeleteUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"user", "id"}, ""))
 
-	pattern_User_UpdatePassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"users", "password"}, ""))
+	pattern_User_UpdatePassword_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"user", "password"}, ""))
 
 	pattern_User_Refresh_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"auth", "refresh"}, ""))
 )

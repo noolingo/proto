@@ -101,3 +101,9 @@ gen:
 errors-gen:
 	go run cmd/err-gen/gen.go
 	gofmt -w $(ERRORS_GENERATED)
+
+# refact:
+# 	go mod edit -module github.com/noolingo/proto
+# 	-- rename all imported module
+# 	find . -type f -name '*.go' \
+#   	-exec sed -i -e 's,github.com/MelnikovNA/noolingoproto,github.com/noolingo/proto,g' {} \;

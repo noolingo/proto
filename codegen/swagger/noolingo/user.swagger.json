@@ -137,7 +137,7 @@
         ]
       }
     },
-    "/users/password": {
+    "/user/password": {
       "post": {
         "operationId": "User_UpdatePassword",
         "responses": {
@@ -169,7 +169,7 @@
         ]
       }
     },
-    "/users/{id}": {
+    "/user/{id}": {
       "delete": {
         "operationId": "User_DeleteUser",
         "responses": {
