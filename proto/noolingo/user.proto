@@ -30,41 +30,34 @@ service User {
       };
     }
   
-    rpc Logout(LogoutRequest) returns (common.Response) {
-      option (google.api.http) = {
-        delete: "/auth/logout"
-      };
-    }
+    // rpc Logout(LogoutRequest) returns (common.Response) {
+    //   option (google.api.http) = {
+    //     delete: "/auth/logout"
+    //   };
+    // }
   
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {
       option (google.api.http) = {
-        get: "/users/{id}"
+        get: "/user/info"
       };
     }
   
-    rpc UpdateUser(UpdateUserRequest) returns (common.Response) {
-      option (google.api.http) = {
-        put: "/users"
-        body: "*"
-      };
-    }
+    // rpc UpdateUser(UpdateUserRequest) returns (common.Response) {
+    //   option (google.api.http) = {
+    //     put: "/users"
+    //     body: "*"
+    //   };
+    // }
   
     rpc DeleteUser(DeleteUserRequest) returns (common.Response) {
       option (google.api.http) = {
-        delete: "/users/{id}"
+        delete: "/user/{id}"
       };
     }
-  
-    rpc CreateUser(CreateUserRequest) returns (common.Response) {
-      option (google.api.http) = {
-        post: "/users"
-        body: "*"
-      };
-    }
-  
+
     rpc UpdatePassword(UpdatePasswordRequest) returns (common.Response) {
       option (google.api.http) = {
-        post: "/users/password"
+        post: "/user/password"
         body: "*"
       };
     }
@@ -87,13 +80,12 @@ message UserObject {
   string id = 1;
   string name = 2;
   string email = 3;
-  bool is_deleted = 4;
+  // bool is_deleted = 4;
   google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp deleted_at = 6;
+  // google.protobuf.Timestamp deleted_at = 6;
 }
 
 message GetUserRequest {
-  string id = 1;
 }
 
 message GetUserResponse {

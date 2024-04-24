@@ -16,36 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/auth/logout": {
-      "delete": {
-        "operationId": "User_Logout",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/commonResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "logoutToken",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "User"
-        ]
-      }
-    },
     "/auth/refresh": {
       "post": {
         "operationId": "User_Refresh",
@@ -145,14 +115,14 @@
         "security": []
       }
     },
-    "/users": {
-      "post": {
-        "operationId": "User_CreateUser",
+    "/user/info": {
+      "get": {
+        "operationId": "User_GetUser",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/commonResponse"
+              "$ref": "#/definitions/noolingoGetUserResponse"
             }
           },
           "default": {
@@ -162,46 +132,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/noolingoCreateUserRequest"
-            }
-          }
-        ],
-        "tags": [
-          "User"
-        ]
-      },
-      "put": {
-        "operationId": "User_UpdateUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/commonResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/noolingoUpdateUserRequest"
-            }
-          }
-        ],
         "tags": [
           "User"
         ]
@@ -240,34 +170,6 @@
       }
     },
     "/users/{id}": {
-      "get": {
-        "operationId": "User_GetUser",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/noolingoGetUserResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "User"
-        ]
-      },
       "delete": {
         "operationId": "User_DeleteUser",
         "responses": {
@@ -318,26 +220,6 @@
         },
         "error": {
           "$ref": "#/definitions/commonError"
-        }
-      }
-    },
-    "noolingoCreateUserRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "isDeleted": {
-          "type": "boolean"
-        },
-        "password": {
-          "type": "string"
-        },
-        "repeatedPassword": {
-          "type": "string"
         }
       }
     },
@@ -421,23 +303,6 @@
         }
       }
     },
-    "noolingoUpdateUserRequest": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "isDeleted": {
-          "type": "boolean"
-        }
-      }
-    },
     "noolingoUserObject": {
       "type": "object",
       "properties": {
@@ -450,16 +315,11 @@
         "email": {
           "type": "string"
         },
-        "isDeleted": {
-          "type": "boolean"
-        },
         "createdAt": {
           "type": "string",
-          "format": "date-time"
-        },
-        "deletedAt": {
-          "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "description": "google.protobuf.Timestamp deleted_at = 6;",
+          "title": "bool is_deleted = 4;"
         }
       }
     },
