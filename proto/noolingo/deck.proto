@@ -10,10 +10,28 @@ import "common/common.proto";
 
 service Deck{
 
-    rpc DeckCreate(DeckCreateRequest) returns (DeckCreateResponse){
+    rpc Create(CreateRequest) returns (CreateResponse){
         option (google.api.http)={
             post: "/decks"
             body: "*"
+        };
+    }
+
+    rpc Delete(DeleteRequest) returns (common.Response){
+        option (google.api.http) = {
+            delete: "/decks/{deck_id}"
+        };
+    }
+
+    rpc List(ListRequest) returns (ListResponse){
+        option (google.api.http) = {
+            get: "/decks/list"
+        };
+    }
+
+    rpc Get(GetRequest) returns (GetResponse){
+        option (google.api.http) = {
+            get: "/decks/get/{deck_id}"
         };
     }
 
@@ -29,28 +47,24 @@ service Deck{
             delete: "/decks/{deck_id}/cards/{card_id}"
         };
     }
+}
 
-    rpc DeckDelete(DeckDeleteRequest) returns (common.Response){
-        option (google.api.http) = {
-            delete: "/decks/{deck_id}"
-        };
-    }
+message GetRequest{
+    string deck_id = 1;
+}
 
-    rpc DeckList(DeckListRequest) returns (common.Response){
-        option (google.api.http) = {
-            get: "/decks/{id}"
-        };
-    }
-
+message GetResponse{
+    repeated string card_ids =1;
+    optional common.Error response =2;
 }
 
 message DeckObject{
     string id =1;
-    repeated string card_ids =2;
-    string name =3;
+    string name =2;
+    string description = 3;
 }
 
-message DeckCreateRequest{
+message CreateRequest{
     string name = 1;
     string description = 2;
 }
@@ -60,20 +74,25 @@ message CardAddRequest{
     string card_id =2;
 }
 
+message ListResponse{
+    repeated DeckObject decks =1;
+    optional common.Error response =2;
+}
+
 message CardDeleteRequest{
     string deck_id =1;
     string card_id =2;
 }
 
-message DeckDeleteRequest{
+message DeleteRequest{
     string deck_id = 1;
 }
 
-message DeckListRequest{
+message ListRequest{
     string id =1;
 }
 
-message DeckCreateResponse{
+message CreateResponse{
     string deckID =1;
     optional common.Error response =2;
 }

@@ -95,8 +95,18 @@ generate:
 gen:
 	protoc --proto_path=./proto \
 	-I ./proto -I . -I ./proto/third_party\
-    --descriptor_set_out=myservice.protoset \
+    --descriptor_set_out=user.protoset \
     --include_imports ./proto/noolingo/user.proto
+
+	protoc --proto_path=./proto \
+	-I ./proto -I . -I ./proto/third_party\
+    --descriptor_set_out=cards.protoset \
+    --include_imports ./proto/noolingo/cards.proto 
+
+	protoc --proto_path=./proto \
+	-I ./proto -I . -I ./proto/third_party\
+    --descriptor_set_out=deck.protoset \
+    --include_imports ./proto/noolingo/deck.proto 
 
 errors-gen:
 	go run cmd/err-gen/gen.go
