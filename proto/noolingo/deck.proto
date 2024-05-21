@@ -35,7 +35,7 @@ service Deck{
         };
     }
 
-    rpc CardAdd(CardAddRequest) returns (CardAddResponse){
+    rpc CardAdd(CardAddRequest) returns (common.Response){
         option (google.api.http)={
             put: "/decks/cards"
             body: "*"
@@ -97,11 +97,6 @@ message CreateResponse{
     optional common.Error response =2;
 }
 
-message CardAddResponse{
-    string deck_id =1;
-    string card_id =2;
-    optional common.Error response =3;    
-}
 
 message DeckListResponse{
     DeckObject deckIDs =1;

@@ -36,7 +36,7 @@ type DeckClient interface {
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*common.Response, error)
 	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
-	CardAdd(ctx context.Context, in *CardAddRequest, opts ...grpc.CallOption) (*CardAddResponse, error)
+	CardAdd(ctx context.Context, in *CardAddRequest, opts ...grpc.CallOption) (*common.Response, error)
 	CardDelete(ctx context.Context, in *CardDeleteRequest, opts ...grpc.CallOption) (*common.Response, error)
 }
 
@@ -84,8 +84,8 @@ func (c *deckClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallO
 	return out, nil
 }
 
-func (c *deckClient) CardAdd(ctx context.Context, in *CardAddRequest, opts ...grpc.CallOption) (*CardAddResponse, error) {
-	out := new(CardAddResponse)
+func (c *deckClient) CardAdd(ctx context.Context, in *CardAddRequest, opts ...grpc.CallOption) (*common.Response, error) {
+	out := new(common.Response)
 	err := c.cc.Invoke(ctx, Deck_CardAdd_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -110,7 +110,7 @@ type DeckServer interface {
 	Delete(context.Context, *DeleteRequest) (*common.Response, error)
 	List(context.Context, *ListRequest) (*ListResponse, error)
 	Get(context.Context, *GetRequest) (*GetResponse, error)
-	CardAdd(context.Context, *CardAddRequest) (*CardAddResponse, error)
+	CardAdd(context.Context, *CardAddRequest) (*common.Response, error)
 	CardDelete(context.Context, *CardDeleteRequest) (*common.Response, error)
 	mustEmbedUnimplementedDeckServer()
 }
@@ -131,7 +131,7 @@ func (UnimplementedDeckServer) List(context.Context, *ListRequest) (*ListRespons
 func (UnimplementedDeckServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedDeckServer) CardAdd(context.Context, *CardAddRequest) (*CardAddResponse, error) {
+func (UnimplementedDeckServer) CardAdd(context.Context, *CardAddRequest) (*common.Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CardAdd not implemented")
 }
 func (UnimplementedDeckServer) CardDelete(context.Context, *CardDeleteRequest) (*common.Response, error) {
